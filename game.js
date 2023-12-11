@@ -5,7 +5,7 @@ fruitImage.src = 'fruit.png';
 
 const fruitWidth = 80;
 const fruitHeight = 80;
-const gameTime = 30; // ゲーム時間（秒）
+const gameTime = 15; // ゲーム時間（秒）
 
 let fruitX = Math.random() * (canvas.width - fruitWidth);
 let fruitY = Math.random() * (canvas.height - fruitHeight);
