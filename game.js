@@ -5,13 +5,14 @@ fruitImage.src = 'fruit.png';
 
 const fruitWidth = 80;
 const fruitHeight = 80;
-const gameTime = 300; // ゲーム時間（秒）
+const gameTime = 60; // ゲーム時間（秒）
 
 let fruitX = Math.random() * (canvas.width - fruitWidth);
 let fruitY = Math.random() * (canvas.height - fruitHeight);
 
 let gameStarted = false;
 let timeLeft = gameTime;
+let lastTimestamp = 0;
 
 function drawFruit() {
     ctx.drawImage(fruitImage, fruitX, fruitY, fruitWidth, fruitHeight);
@@ -24,11 +25,18 @@ const timerElement = document.getElementById('time');
 const messageElement = document.getElementById('message');
 const resetButton = document.getElementById('resetButton');
 
-function gameLoop() {
+function gameLoop(timestamp) {
     if (gameStarted) {
+        if (lastTimestamp === 0) {
+            lastTimestamp = timestamp;
+        }
+
+        const elapsedSeconds = (timestamp - lastTimestamp) / 1000;
+        lastTimestamp = timestamp;
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawFruit();
-        updateTime();
+        updateTime(elapsedSeconds);
         requestAnimationFrame(gameLoop);
     }
 }
@@ -38,10 +46,10 @@ function generateNewFruit() {
     fruitY = Math.random() * (canvas.height - fruitHeight);
 }
 
-function updateTime() {
+function updateTime(elapsedSeconds) {
     if (timeLeft > 0) {
-        timeLeft -= 1;
-        timerElement.textContent = timeLeft;
+        timeLeft -= elapsedSeconds;
+        timerElement.textContent = timeLeft.toFixed(0);
     } else {
         endGame();
     }
@@ -55,14 +63,15 @@ function endGame() {
 
 function startGame() {
     gameStarted = true;
+    lastTimestamp = 0;
     score = 0;
     timeLeft = gameTime;
     scoreElement.textContent = score;
-    timerElement.textContent = timeLeft;
+    timerElement.textContent = timeLeft.toFixed(0);
     messageElement.style.display = 'none';
     resetButton.style.display = 'none';
     generateNewFruit();
-    gameLoop();
+    requestAnimationFrame(gameLoop);
 }
 
 canvas.addEventListener('click', (e) => {
@@ -89,7 +98,7 @@ function resetGame() {
     score = 0;
     scoreElement.textContent = score;
     timeLeft = gameTime;
-    timerElement.textContent = timeLeft;
+    timerElement.textContent = timeLeft.toFixed(0);
     messageElement.style.display = 'none';
     resetButton.style.display = 'none';
     startGame();
