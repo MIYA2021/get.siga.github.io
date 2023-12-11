@@ -1,7 +1,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const fruitImage = new Image();
-fruitImage.src = 'fruit.png'; // フルーツ画像のパス
+fruitImage.src = 'fruit.png';
 
 const fruitWidth = 80;
 const fruitHeight = 80;
@@ -27,10 +27,6 @@ function generateNewFruit() {
     fruitY = Math.random() * (canvas.height - fruitHeight);
 }
 
-// 初回の果物表示
-drawFruit();
-
-// クリック時の処理
 canvas.addEventListener('click', (e) => {
     const mouseX = e.clientX - canvas.offsetLeft;
     const mouseY = e.clientY - canvas.offsetTop;
@@ -39,12 +35,24 @@ canvas.addEventListener('click', (e) => {
         score++;
         scoreElement.textContent = score;
         generateNewFruit();
+        checkScore();
     }
 });
 
-// 5秒ごとに新しい位置にフルーツを表示
-setInterval(() => {
-    generateNewFruit();
-}, 3000);
+function checkScore() {
+    if (score >= 20) {
+        document.getElementById('message').style.display = 'block';
+        document.getElementById('resetButton').style.display = 'block';
+    }
+}
 
+function resetGame() {
+    score = 0;
+    scoreElement.textContent = score;
+    document.getElementById('message').style.display = 'none';
+    document.getElementById('resetButton').style.display = 'none';
+}
+
+drawFruit(); // 初回の果物表示
 gameLoop();
+setInterval(generateNewFruit, 5000); // 5秒ごとに新しい位置にフルーツを表示
