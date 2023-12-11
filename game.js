@@ -16,6 +16,7 @@ let lastTimestamp = 0;
 
 let level = 'Easy';
 const levelInfoElement = document.getElementById('levelInfo');
+const levelButtons = document.getElementById('levelButtons').querySelectorAll('.levelButton');
 
 function drawFruit() {
     ctx.drawImage(fruitImage, fruitX, fruitY, fruitWidth, fruitHeight);
@@ -68,6 +69,11 @@ function endGame() {
         messageElement.style.display = 'block';
     }
     resetButton.style.display = 'block';
+    enableLevelButtons();
+}
+
+function enableLevelButtons() {
+    levelButtons.forEach(button => button.disabled = false);
 }
 
 function startGame() {
@@ -81,10 +87,11 @@ function startGame() {
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
     startButton.style.display = 'none';
+    enableLevelButtons();
     updateLevel();
     generateNewFruit();
     requestAnimationFrame(gameLoop);
-    setTimeout(endGame, gameTime * 1000); // ゲーム時間後に終了
+    setTimeout(endGame, gameTime * 1000);
 }
 
 function updateLevel() {
@@ -124,4 +131,11 @@ function resetGame() {
     timerElement.textContent = timeLeft.toFixed(0);
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
+    resetButton.style.display = 'none';
+    startButton.style.display = 'block';
+    levelInfoElement.textContent = '';
 }
+
+// 初期設定
+enableLevelButtons();
+levelInfoElement.textContent = '';
