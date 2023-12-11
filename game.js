@@ -14,6 +14,9 @@ let gameStarted = false;
 let timeLeft = gameTime;
 let lastTimestamp = 0;
 
+let level = 'Easy';
+const levelInfoElement = document.getElementById('levelInfo');
+
 function drawFruit() {
     ctx.drawImage(fruitImage, fruitX, fruitY, fruitWidth, fruitHeight);
 }
@@ -23,8 +26,9 @@ let score = 0;
 
 const timerElement = document.getElementById('time');
 const messageElement = document.getElementById('message');
-const resetButton = document.getElementById('resetButton');
 const congratulationsElement = document.getElementById('congratulations');
+const resetButton = document.getElementById('resetButton');
+const startButton = document.getElementById('startButton');
 
 function gameLoop(timestamp) {
     if (gameStarted) {
@@ -76,8 +80,20 @@ function startGame() {
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
+    startButton.style.display = 'none';
+    updateLevel();
     generateNewFruit();
     requestAnimationFrame(gameLoop);
+    setTimeout(endGame, gameTime * 1000); // ゲーム時間後に終了
+}
+
+function updateLevel() {
+    if (score >= 10 && score < 20) {
+        level = 'Intermediate';
+    } else if (score >= 20) {
+        level = 'Hard';
+    }
+    levelInfoElement.textContent = `レベル: ${level}`;
 }
 
 canvas.addEventListener('click', (e) => {
@@ -95,6 +111,7 @@ canvas.addEventListener('click', (e) => {
 });
 
 function checkScore() {
+    updateLevel();
     if (score >= 20) {
         endGame();
     }
@@ -107,8 +124,4 @@ function resetGame() {
     timerElement.textContent = timeLeft.toFixed(0);
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
-    resetButton.style.display = 'none';
-    startGame();
 }
-
-drawFruit(); // 初回の果物表示
