@@ -1,3 +1,5 @@
+// game.js
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const fruitImage = new Image();
@@ -5,7 +7,8 @@ fruitImage.src = 'fruit.png';
 
 const fruitWidth = 80;
 const fruitHeight = 80;
-const gameTime = 15; // ゲーム時間（秒）
+let gameTime = 15; // ゲーム時間（秒）
+let timeSpeed = 1; // タイムスピード
 
 let fruitX = Math.random() * (canvas.width - fruitWidth);
 let fruitY = Math.random() * (canvas.height - fruitHeight);
@@ -17,6 +20,7 @@ let lastTimestamp = 0;
 let level = 'Easy';
 const levelInfoElement = document.getElementById('levelInfo');
 const levelButtons = document.getElementById('levelButtons').querySelectorAll('.levelButton');
+let levelSelected = false; // レベルが選択されたかどうかのフラグ
 
 function drawFruit() {
     ctx.drawImage(fruitImage, fruitX, fruitY, fruitWidth, fruitHeight);
@@ -54,7 +58,7 @@ function generateNewFruit() {
 
 function updateTime(elapsedSeconds) {
     if (timeLeft > 0) {
-        timeLeft -= elapsedSeconds;
+        timeLeft -= elapsedSeconds * timeSpeed;
         timerElement.textContent = timeLeft.toFixed(0);
     } else {
         endGame();
@@ -72,14 +76,40 @@ function endGame() {
     enableLevelButtons();
 }
 
+function disableLevelButtons() {
+    levelButtons.forEach(button => button.disabled = true);
+}
+
 function enableLevelButtons() {
     levelButtons.forEach(button => button.disabled = false);
+}
+
+function selectLevel(selectedLevel) {
+    if (!levelSelected) {
+        level = selectedLevel;
+        levelSelected = true;
+        disableLevelButtons();
+        levelInfoElement.textContent = `レベル: ${level}`;
+        startGame();
+    }
 }
 
 function startGame() {
     gameStarted = true;
     lastTimestamp = 0;
     score = 0;
+
+    if (level === 'Hard') {
+        gameTime = 180; // ハードモード：3分
+        timeSpeed = 1.5; // タイムスピードを速くする
+    } else if (level === 'Intermediate') {
+        gameTime = 10; // インターミディエイトモード：10秒
+        timeSpeed = 1; // タイムスピードを通常に戻す
+    } else {
+        gameTime = 15; // イージーモード：15秒
+        timeSpeed = 1; // タイムスピードを通常に戻す
+    }
+
     timeLeft = gameTime;
     scoreElement.textContent = score;
     timerElement.textContent = timeLeft.toFixed(0);
@@ -87,7 +117,6 @@ function startGame() {
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
     startButton.style.display = 'none';
-    enableLevelButtons();
     updateLevel();
     generateNewFruit();
     requestAnimationFrame(gameLoop);
@@ -95,7 +124,7 @@ function startGame() {
 }
 
 function updateLevel() {
-    if (score >= 10 && score < 20) {
+    if (score >= 15 && score < 20) {
         level = 'Intermediate';
     } else if (score >= 20) {
         level = 'Hard';
@@ -131,11 +160,4 @@ function resetGame() {
     timerElement.textContent = timeLeft.toFixed(0);
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
-    resetButton.style.display = 'none';
-    startButton.style.display = 'block';
-    levelInfoElement.textContent = '';
-}
-
-// 初期設定
-enableLevelButtons();
-levelInfoElement.textContent = '';
+    resetButton.style.display = 'none
