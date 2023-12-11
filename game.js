@@ -5,7 +5,7 @@ fruitImage.src = 'fruit.png';
 
 const fruitWidth = 80;
 const fruitHeight = 80;
-const gameTime = 60; // ゲーム時間（秒）
+const gameTime = 30; // ゲーム時間（秒）
 
 let fruitX = Math.random() * (canvas.width - fruitWidth);
 let fruitY = Math.random() * (canvas.height - fruitHeight);
@@ -24,6 +24,7 @@ let score = 0;
 const timerElement = document.getElementById('time');
 const messageElement = document.getElementById('message');
 const resetButton = document.getElementById('resetButton');
+const congratulationsElement = document.getElementById('congratulations');
 
 function gameLoop(timestamp) {
     if (gameStarted) {
@@ -57,7 +58,11 @@ function updateTime(elapsedSeconds) {
 
 function endGame() {
     gameStarted = false;
-    messageElement.style.display = 'block';
+    if (score >= 20) {
+        congratulationsElement.style.display = 'block';
+    } else {
+        messageElement.style.display = 'block';
+    }
     resetButton.style.display = 'block';
 }
 
@@ -69,6 +74,7 @@ function startGame() {
     scoreElement.textContent = score;
     timerElement.textContent = timeLeft.toFixed(0);
     messageElement.style.display = 'none';
+    congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
     generateNewFruit();
     requestAnimationFrame(gameLoop);
@@ -100,6 +106,7 @@ function resetGame() {
     timeLeft = gameTime;
     timerElement.textContent = timeLeft.toFixed(0);
     messageElement.style.display = 'none';
+    congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
     startGame();
 }
