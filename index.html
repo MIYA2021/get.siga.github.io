@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>フルーツスラッシュゲーム</title>
+    <title>しが追いかけゲーム</title>
     <style>
         * {
             box-sizing: border-box;
@@ -75,6 +75,22 @@
             outline: none;
         }
 
+        #levelButtons {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .levelButton {
+            font-size: 1.2em;
+            padding: 8px 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
         #timer {
             text-align: center;
             font-size: 1.5em;
@@ -83,8 +99,13 @@
     </style>
 </head>
 <body>
-    <h1>フルーツスラッシュゲーム</h1>
-    <p id="levelInfo">レベル: Easy</p>
+    <h1>しが追いかけゲーム</h1>
+    <div id="levelButtons">
+        <button class="levelButton" onclick="selectLevel('Easy')">Easy</button>
+        <button class="levelButton" onclick="selectLevel('Intermediate')">Intermediate</button>
+        <button class="levelButton" onclick="selectLevel('Hard')">Hard</button>
+    </div>
+    <p id="levelInfo"></p>
     <p>スコア：<span id="score">0</span></p>
     <p id="timer">残り時間：<span id="time">15</span>秒</p>
     <canvas id="gameCanvas"></canvas>
