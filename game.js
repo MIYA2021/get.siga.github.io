@@ -10,6 +10,9 @@ const gameTime = 30; // ゲーム時間（秒）
 let fruitX = Math.random() * (canvas.width - fruitWidth);
 let fruitY = Math.random() * (canvas.height - fruitHeight);
 
+let gameStarted = false;
+let timeLeft = gameTime;
+
 function drawFruit() {
     ctx.drawImage(fruitImage, fruitX, fruitY, fruitWidth, fruitHeight);
 }
@@ -18,13 +21,16 @@ const scoreElement = document.getElementById('score');
 let score = 0;
 
 const timerElement = document.getElementById('time');
-let timeLeft = gameTime;
+const messageElement = document.getElementById('message');
+const resetButton = document.getElementById('resetButton');
 
 function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawFruit();
-    updateTime();
-    requestAnimationFrame(gameLoop);
+    if (gameStarted) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawFruit();
+        updateTime();
+        requestAnimationFrame(gameLoop);
+    }
 }
 
 function generateNewFruit() {
@@ -42,19 +48,34 @@ function updateTime() {
 }
 
 function endGame() {
-    document.getElementById('message').style.display = 'block';
-    document.getElementById('resetButton').style.display = 'block';
+    gameStarted = false;
+    messageElement.style.display = 'block';
+    resetButton.style.display = 'block';
+}
+
+function startGame() {
+    gameStarted = true;
+    score = 0;
+    timeLeft = gameTime;
+    scoreElement.textContent = score;
+    timerElement.textContent = timeLeft;
+    messageElement.style.display = 'none';
+    resetButton.style.display = 'none';
+    generateNewFruit();
+    gameLoop();
 }
 
 canvas.addEventListener('click', (e) => {
-    const mouseX = e.clientX - canvas.offsetLeft;
-    const mouseY = e.clientY - canvas.offsetTop;
+    if (gameStarted) {
+        const mouseX = e.clientX - canvas.offsetLeft;
+        const mouseY = e.clientY - canvas.offsetTop;
 
-    if (mouseX >= fruitX && mouseX <= fruitX + fruitWidth && mouseY >= fruitY && mouseY <= fruitY + fruitHeight) {
-        score++;
-        scoreElement.textContent = score;
-        generateNewFruit();
-        checkScore();
+        if (mouseX >= fruitX && mouseX <= fruitX + fruitWidth && mouseY >= fruitY && mouseY <= fruitY + fruitHeight) {
+            score++;
+            scoreElement.textContent = score;
+            generateNewFruit();
+            checkScore();
+        }
     }
 });
 
@@ -69,10 +90,9 @@ function resetGame() {
     scoreElement.textContent = score;
     timeLeft = gameTime;
     timerElement.textContent = timeLeft;
-    document.getElementById('message').style.display = 'none';
-    document.getElementById('resetButton').style.display = 'none';
+    messageElement.style.display = 'none';
+    resetButton.style.display = 'none';
+    startGame();
 }
 
 drawFruit(); // 初回の果物表示
-gameLoop();
-setInterval(generateNewFruit, 5000); // 5秒ごとに新しい位置にフルーツを表示
