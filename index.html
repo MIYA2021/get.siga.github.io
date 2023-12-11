@@ -55,11 +55,18 @@
             border-radius: 5px;
             outline: none;
         }
+
+        #timer {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>フルーツスラッシュゲーム</h1>
     <p>スコア：<span id="score">0</span></p>
+    <p id="timer">残り時間：<span id="time">30</span>秒</p>
     <canvas id="gameCanvas"></canvas>
     <p id="message">おめでとうございます！スコアが20に達しました。</p>
     <button id="resetButton" onclick="resetGame()">もう一度</button>
