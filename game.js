@@ -160,4 +160,5 @@ function resetGame() {
     timerElement.textContent = timeLeft.toFixed(0);
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
-    resetButton.style.display = 'none
+    resetButton.style.display = 'none';
+}
