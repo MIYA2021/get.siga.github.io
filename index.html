@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>しがを追いかけろ</title>
+    <title>フルーツスラッシュゲーム</title>
     <style>
         * {
             box-sizing: border-box;
@@ -18,29 +18,51 @@
 
         h1 {
             text-align: center;
-            font-size: 2em; /* タイトルのフォントサイズを大きくする */
+            font-size: 2em;
             margin-bottom: 10px;
         }
 
         p {
             text-align: center;
-            font-size: 1.5em; /* スコア表示のフォントサイズを大きくする */
+            font-size: 1.5em;
             margin-bottom: 10px;
         }
 
         canvas {
             display: block;
             margin: 0 auto;
-            outline: none; /* 枠線を無効にする */
-            max-width: 100%; /* 幅が画面より大きくならないようにする */
-            max-height: 100%; /* 高さが画面より大きくならないようにする */
+            outline: none;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #message {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        #resetButton {
+            display: none;
+            margin: 10px auto;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            outline: none;
         }
     </style>
 </head>
 <body>
-    <h1>しがを追いかけろ</h1>
+    <h1>フルーツスラッシュゲーム</h1>
     <p>スコア：<span id="score">0</span></p>
     <canvas id="gameCanvas"></canvas>
+    <p id="message">おめでとうございます！スコアが20に達しました。</p>
+    <button id="resetButton" onclick="resetGame()">もう一度</button>
     <script src="game.js"></script>
 </body>
 </html>
