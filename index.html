@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>しが追いかけゲーム</title>
+    <title>フルーツスラッシュゲーム</title>
     <style>
         * {
             box-sizing: border-box;
@@ -43,6 +43,13 @@
             display: none;
         }
 
+        #congratulations {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            display: none;
+        }
+
         #resetButton {
             display: none;
             margin: 10px auto;
@@ -76,12 +83,13 @@
     </style>
 </head>
 <body>
-    <h1>しが追いかけゲーム</h1>
+    <h1>フルーツスラッシュゲーム</h1>
+    <p id="levelInfo">レベル: Easy</p>
     <p>スコア：<span id="score">0</span></p>
     <p id="timer">残り時間：<span id="time">15</span>秒</p>
     <canvas id="gameCanvas"></canvas>
     <p id="message">残念！失敗しました。</p>
-    <p id="congratulations" style="display: none;">おめでとうございます！</p>
+    <p id="congratulations">おめでとうございます！</p>
     <button id="resetButton" onclick="resetGame()">もう一度</button>
     <button id="startButton" onclick="startGame()">スタート</button>
     <script src="game.js"></script>
