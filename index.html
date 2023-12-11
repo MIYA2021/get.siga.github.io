@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>しがを追いかけろ</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em; /* タイトルのフォントサイズを大きくする */
+            margin-bottom: 10px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.5em; /* スコア表示のフォントサイズを大きくする */
+            margin-bottom: 10px;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            outline: none; /* 枠線を無効にする */
+            max-width: 100%; /* 幅が画面より大きくならないようにする */
+            max-height: 100%; /* 高さが画面より大きくならないようにする */
+        }
+    </style>
+</head>
+<body>
+    <h1>しがを追いかけろ</h1>
+    <p>スコア：<span id="score">0</span></p>
+    <canvas id="gameCanvas"></canvas>
+    <script src="game.js"></script>
+</body>
+</html>
