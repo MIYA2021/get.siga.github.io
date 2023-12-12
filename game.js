@@ -2,10 +2,8 @@
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-const fruitImage1 = new Image();
-const fruitImage2 = new Image();
-fruitImage1.src = 'fruit1.png';
-fruitImage2.src = 'fruit2.png';
+const fruitImage = new Image();
+fruitImage.src = 'fruit.png';
 
 const fruitWidth = 80;
 const fruitHeight = 80;
@@ -13,17 +11,14 @@ const fruitHeight = 80;
 let gameTime = 60; // ゲーム時間（秒）
 let timeSpeed = 1; // タイムスピード
 
-let fruitX1 = Math.random() * (canvas.width - fruitWidth);
-let fruitY1 = Math.random() * (canvas.height - fruitHeight);
-
-let fruitX2 = Math.random() * (canvas.width - fruitWidth);
-let fruitY2 = Math.random() * (canvas.height - fruitHeight);
+let fruitX = Math.random() * (canvas.width - fruitWidth);
+let fruitY = Math.random() * (canvas.height - fruitHeight);
 
 let gameStarted = false;
 let timeLeft = gameTime;
 let lastTimestamp = 0;
 
-let level = 'Intermediate';
+let level = 'Easy';
 const levelInfoElement = document.getElementById('levelInfo');
 const levelButtons = document.getElementById('levelButtons').querySelectorAll('.levelButton');
 let levelSelected = false; // レベルが選択されたかどうかのフラグ
@@ -47,23 +42,19 @@ function gameLoop(timestamp) {
         lastTimestamp = timestamp;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawFruits();
+        drawFruit();
         updateTime(elapsedSeconds);
         requestAnimationFrame(gameLoop);
     }
 }
 
-function drawFruits() {
-    ctx.drawImage(fruitImage1, fruitX1, fruitY1, fruitWidth, fruitHeight);
-    ctx.drawImage(fruitImage2, fruitX2, fruitY2, fruitWidth, fruitHeight);
+function drawFruit() {
+    ctx.drawImage(fruitImage, fruitX, fruitY, fruitWidth, fruitHeight);
 }
 
-function generateNewFruits() {
-    fruitX1 = Math.random() * (canvas.width - fruitWidth);
-    fruitY1 = Math.random() * (canvas.height - fruitHeight);
-
-    fruitX2 = Math.random() * (canvas.width - fruitWidth);
-    fruitY2 = Math.random() * (canvas.height - fruitHeight);
+function generateNewFruit() {
+    fruitX = Math.random() * (canvas.width - fruitWidth);
+    fruitY = Math.random() * (canvas.height - fruitHeight);
 }
 
 function updateTime(elapsedSeconds) {
@@ -87,7 +78,7 @@ function endGame() {
     if (level === 'Hard') {
         messageElement.style.display = 'block';
     } else {
-        if (score === 25 && level === 'Intermediate') {
+        if (score === 25 && level === 'Easy') {
             congratulationsElement.style.display = 'block';
         } else {
             messageElement.style.display = 'block';
@@ -124,9 +115,6 @@ function startGame() {
     if (level === 'Hard') {
         gameTime = 180; // ハードモード：3分
         timeSpeed = 2.0; // タイムスピードを速くする
-    } else if (level === 'Intermediate') {
-        gameTime = 10; // Intermediateモード：10秒
-        timeSpeed = 1; // タイムスピードを通常に戻す
     } else {
         gameTime = 60; // イージーモード：1分
         timeSpeed = 1; // タイムスピードを通常に戻す
@@ -139,7 +127,7 @@ function startGame() {
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
     updateLevel();
-    generateNewFruits();
+    generateNewFruit();
     requestAnimationFrame(gameLoop);
 }
 
@@ -152,11 +140,10 @@ canvas.addEventListener('click', (e) => {
         const mouseX = e.clientX - canvas.offsetLeft;
         const mouseY = e.clientY - canvas.offsetTop;
 
-        if ((mouseX >= fruitX1 && mouseX <= fruitX1 + fruitWidth && mouseY >= fruitY1 && mouseY <= fruitY1 + fruitHeight) ||
-            (mouseX >= fruitX2 && mouseX <= fruitX2 + fruitWidth && mouseY >= fruitY2 && mouseY <= fruitY2 + fruitHeight)) {
+        if (mouseX >= fruitX && mouseX <= fruitX + fruitWidth && mouseY >= fruitY && mouseY <= fruitY + fruitHeight) {
             score++;
             scoreElement.textContent = score;
-            generateNewFruits();
+            generateNewFruit();
             checkScore();
         }
     }
