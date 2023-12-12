@@ -1,3 +1,5 @@
+// game.js
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const fruitImage = new Image();
@@ -5,6 +7,7 @@ fruitImage.src = 'fruit.png';
 
 const fruitWidth = 80;
 const fruitHeight = 80;
+
 let gameTime = 15; // ゲーム時間（秒）
 let timeSpeed = 1; // タイムスピード
 
@@ -53,7 +56,7 @@ function generateNewFruit() {
 function updateTime(elapsedSeconds) {
     if (timeLeft > 0) {
         timeLeft -= elapsedSeconds * timeSpeed;
-        timerElement.textContent = timeLeft.toFixed(0);
+        timerElement.textContent = timeLeft.toFixed(1);
     } else {
         endGame();
     }
@@ -106,11 +109,10 @@ function startGame() {
 
     timeLeft = gameTime;
     scoreElement.textContent = score;
-    timerElement.textContent = timeLeft.toFixed(0);
+    timerElement.textContent = timeLeft.toFixed(1);
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
-    startButton.style.display = 'none';
     updateLevel();
     generateNewFruit();
     requestAnimationFrame(gameLoop);
@@ -150,7 +152,7 @@ function resetGame() {
     score = 0;
     scoreElement.textContent = score;
     timeLeft = gameTime;
-    timerElement.textContent = timeLeft.toFixed(0);
+    timerElement.textContent = timeLeft.toFixed(1);
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
