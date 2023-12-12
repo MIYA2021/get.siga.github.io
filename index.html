@@ -5,31 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>しが追いかけゲーム</title>
     <style>
-        * {
-            background-image: url('background.jpg'); /* 背景画像のパスを適切なものに変更 */
+        body {
+            background: url('background.jpg') fixed;
             background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        body {
             font-family: Arial, sans-serif;
             overflow: hidden;
         }
 
-        h1 {
+        h1, p, #levelInfo, #timer, #message, #congratulations, #score {
             text-align: center;
-            font-size: 2em;
-            margin-bottom: 10px;
+            color: white;
         }
 
-        p {
-            text-align: center;
+        h1 {
+            font-size: 3em;
+            margin-top: 50px;
+        }
+
+        p, #levelInfo, #timer {
             font-size: 1.5em;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         canvas {
@@ -38,38 +35,19 @@
             outline: none;
             max-width: 100%;
             max-height: 100%;
+            border: 1px solid white; /* キャンバスに境界線を追加 */
         }
 
-        #message {
-            text-align: center;
+        #message, #congratulations {
+            font-size: 2em;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        #resetButton, #startButton {
+            display: none;
+            margin: 20px auto;
             font-size: 1.5em;
-            margin-bottom: 10px;
-            display: none;
-        }
-
-        #congratulations {
-            text-align: center;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            display: none;
-        }
-
-        #resetButton {
-            display: none;
-            margin: 10px auto;
-            font-size: 1.2em;
-            padding: 10px 20px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        #startButton {
-            margin: 10px auto;
-            font-size: 1.2em;
             padding: 10px 20px;
             cursor: pointer;
             background-color: #4CAF50;
@@ -81,24 +59,18 @@
 
         #levelButtons {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         .levelButton {
-            font-size: 1.2em;
-            padding: 8px 16px;
+            font-size: 1.5em;
+            padding: 10px 20px;
             cursor: pointer;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
-            margin: 0 5px;
-        }
-
-        #timer {
-            text-align: center;
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            margin: 0 10px;
         }
     </style>
 </head>
