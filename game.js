@@ -8,7 +8,7 @@ fruitImage.src = 'fruit.png';
 const fruitWidth = 80;
 const fruitHeight = 80;
 
-let gameTime = 15; // ゲーム時間（秒）
+let gameTime = 60; // ゲーム時間（秒）
 let timeSpeed = 1; // タイムスピード
 
 let fruitX = Math.random() * (canvas.width - fruitWidth);
@@ -60,21 +60,35 @@ function generateNewFruit() {
 function updateTime(elapsedSeconds) {
     if (timeLeft > 0) {
         timeLeft -= elapsedSeconds * timeSpeed;
-        timerElement.textContent = timeLeft.toFixed(1);
+        timerElement.textContent = formatTime(timeLeft);
     } else {
         endGame();
     }
 }
 
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toFixed(0).padStart(2, '0')}`;
+}
+
 function endGame() {
     gameStarted = false;
 
-    if (score >= 20) {
-        congratulationsElement.style.display = 'block';
-    } else if (score >= 15) {  // Intermediateでは15スコアで終了
-        congratulationsElement.style.display = 'block';
-    } else {
+    if (level === 'Hard') {
         messageElement.style.display = 'block';
+    } else if (level === 'Intermediate') {
+        if (score >= 15) {
+            congratulationsElement.style.display = 'block';
+        } else {
+            messageElement.style.display = 'block';
+        }
+    } else {
+        if (score >= 20) {
+            congratulationsElement.style.display = 'block';
+        } else {
+            messageElement.style.display = 'block';
+        }
     }
 
     resetButton.style.display = 'block';
@@ -108,16 +122,16 @@ function startGame() {
         gameTime = 180; // ハードモード：3分
         timeSpeed = 1.5; // タイムスピードを速くする
     } else if (level === 'Intermediate') {
-        gameTime = 15; // Intermediateモード：15秒
+        gameTime = 20; // Intermediateモード：20秒
         timeSpeed = 1; // タイムスピードを通常に戻す
     } else {
-        gameTime = 15; // イージーモード：15秒
+        gameTime = 60; // イージーモード：1分
         timeSpeed = 1; // タイムスピードを通常に戻す
     }
 
     timeLeft = gameTime;
     scoreElement.textContent = score;
-    timerElement.textContent = timeLeft.toFixed(1);
+    timerElement.textContent = formatTime(timeLeft);
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
@@ -157,7 +171,7 @@ function resetGame() {
     score = 0;
     scoreElement.textContent = score;
     timeLeft = gameTime;
-    timerElement.textContent = timeLeft.toFixed(1);
+    timerElement.textContent = formatTime(timeLeft);
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
