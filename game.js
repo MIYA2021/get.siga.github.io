@@ -3,7 +3,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const fruitImage = new Image();
-fruitImage.src = 'https://github.com/MIYA2021/get.siga.github.io/blob/main/fruit.png?raw=true';
+fruitImage.src = 'fruit.png';
 
 const fruitWidth = 80;
 const fruitHeight = 80;
@@ -68,11 +68,15 @@ function updateTime(elapsedSeconds) {
 
 function endGame() {
     gameStarted = false;
+
     if (score >= 20) {
+        congratulationsElement.style.display = 'block';
+    } else if (score >= 15) {  // Intermediateでは15スコアで終了
         congratulationsElement.style.display = 'block';
     } else {
         messageElement.style.display = 'block';
     }
+
     resetButton.style.display = 'block';
     enableLevelButtons();
 }
@@ -104,7 +108,7 @@ function startGame() {
         gameTime = 180; // ハードモード：3分
         timeSpeed = 1.5; // タイムスピードを速くする
     } else if (level === 'Intermediate') {
-        gameTime = 10; // インターミディエイトモード：10秒
+        gameTime = 15; // Intermediateモード：15秒
         timeSpeed = 1; // タイムスピードを通常に戻す
     } else {
         gameTime = 15; // イージーモード：15秒
@@ -123,11 +127,6 @@ function startGame() {
 }
 
 function updateLevel() {
-    if (score >= 15 && score < 20) {
-        level = 'Intermediate';
-    } else if (score >= 20) {
-        level = 'Hard';
-    }
     levelInfoElement.textContent = `レベル: ${level}`;
 }
 
@@ -147,7 +146,9 @@ canvas.addEventListener('click', (e) => {
 
 function checkScore() {
     updateLevel();
-    if (score >= 20) {
+    if (level === 'Hard' && score >= 20) {
+        endGame();
+    } else if (level === 'Intermediate' && score >= 15) {
         endGame();
     }
 }
