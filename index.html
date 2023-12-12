@@ -77,9 +77,9 @@
 <body>
     <h1>しが追いかけゲーム</h1>
     <div id="levelButtons">
-        <button class="levelButton" onclick="selectLevel('Easy')">Easy</button>
-        <button class="levelButton" onclick="selectLevel('Intermediate')">Intermediate</button>
-        <button class="levelButton" onclick="selectLevel('Hard')">Hard</button>
+        <button class="levelButton" onclick="selectLevel('Easy')">ピースフル</button>
+        <button class="levelButton" onclick="selectLevel('Intermediate')">ノーマル</button>
+        <button class="levelButton" onclick="selectLevel('Hard')">3分間ラッシュ</button>
     </div>
     <p id="levelInfo"></p>
     <p>スコア：<span id="score">0</span></p>
@@ -89,6 +89,14 @@
     <p id="congratulations">おめでとうございます！</p>
     <button id="resetButton" onclick="resetGame()">もう一度</button>
     <button id="startButton" onclick="startGame()">スタート</button>
+    <!-- 音楽を追加 -->
+    <audio id="bgm" loop volume="0.2" src="bgm.mp3"></audio>
     <script src="game.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const bgm = document.getElementById('bgm');
+            bgm.play();
+        });
+    </script>
 </body>
 </html>
