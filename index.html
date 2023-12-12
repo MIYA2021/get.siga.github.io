@@ -17,16 +17,18 @@
         h1, p, #levelInfo, #timer, #message, #congratulations, #score {
             text-align: center;
             color: rgb(255, 0, 0);
+            margin: 0; /* 追加 */
         }
 
         h1 {
             font-size: 3em;
-            margin-top: 50px;
+            margin-top: 20px; /* 変更 */
+            margin-bottom: 10px; /* 追加 */
         }
 
         p, #levelInfo, #timer {
-            font-size: 1.5em;
-            margin-bottom: 20px;
+            font-size: 1em; /* 変更 */
+            margin-bottom: 10px; /* 追加 */
         }
 
         canvas {
@@ -34,21 +36,21 @@
             margin: 0 auto;
             outline: none;
             max-width: 100%;
-            max-height: 100%;
-            border: 1px solid white; /* キャンバスに境界線を追加 */
+            max-height: 80vh; /* 変更 */
+            border: 1px solid white;
         }
 
         #message, #congratulations {
-            font-size: 2em;
-            margin-bottom: 20px;
+            font-size: 1.5em; /* 変更 */
+            margin-bottom: 10px; /* 追加 */
             display: none;
         }
 
         #resetButton, #startButton {
             display: none;
-            margin: 20px auto;
-            font-size: 1.5em;
-            padding: 10px 20px;
+            margin: 10px auto; /* 変更 */
+            font-size: 1em; /* 変更 */
+            padding: 8px 16px; /* 変更 */
             cursor: pointer;
             background-color: #4CAF50;
             color: white;
@@ -59,18 +61,18 @@
 
         #levelButtons {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px; /* 変更 */
         }
 
         .levelButton {
-            font-size: 1.5em;
-            padding: 10px 20px;
+            font-size: 1em; /* 変更 */
+            padding: 8px 16px; /* 変更 */
             cursor: pointer;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
-            margin: 0 10px;
+            margin: 0 5px; /* 変更 */
         }
     </style>
 </head>
