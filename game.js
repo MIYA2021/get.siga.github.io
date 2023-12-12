@@ -77,14 +77,10 @@ function endGame() {
 
     if (level === 'Hard') {
         messageElement.style.display = 'block';
-    } else if (level === 'Intermediate') {
-        if (score >= 15) {
-            congratulationsElement.style.display = 'block';
-        } else {
-            messageElement.style.display = 'block';
-        }
     } else {
-        if (score >= 20) {
+        if (score === 20 && level === 'Easy') {
+            congratulationsElement.style.display = 'block';
+        } else if (level === 'Intermediate' && score === 15) {
             congratulationsElement.style.display = 'block';
         } else {
             messageElement.style.display = 'block';
@@ -160,9 +156,9 @@ canvas.addEventListener('click', (e) => {
 
 function checkScore() {
     updateLevel();
-    if (level === 'Hard' && score >= 20) {
+    if (level === 'Hard' && timeLeft <= 0) {
         endGame();
-    } else if (level === 'Intermediate' && score >= 15) {
+    } else if (level !== 'Hard' && score === 20 && timeLeft >= 0) {
         endGame();
     }
 }
@@ -175,8 +171,7 @@ function resetGame() {
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
-    levelSelected = false; // レベル選択をリセット
-    enableLevelButtons();
+    levelSelected = false; // レベル
 }
 
 document.getElementById('startButton').addEventListener('click', () => {
@@ -184,4 +179,3 @@ document.getElementById('startButton').addEventListener('click', () => {
 });
 
 // 初期化
-resetGame();
