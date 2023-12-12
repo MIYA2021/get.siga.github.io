@@ -140,7 +140,6 @@ function startGame() {
     generateNewFruit();
     requestAnimationFrame(gameLoop);
 }
-この修正により、Hard
 
 function updateLevel() {
     levelInfoElement.textContent = `レベル: ${level}`;
