@@ -80,8 +80,6 @@ function endGame() {
     } else {
         if (score === 20 && level === 'Easy') {
             congratulationsElement.style.display = 'block';
-        } else if (level === 'Intermediate' && score === 15) {
-            congratulationsElement.style.display = 'block';
         } else {
             messageElement.style.display = 'block';
         }
@@ -117,12 +115,9 @@ function startGame() {
     if (level === 'Hard') {
         gameTime = 180; // ハードモード：3分
         timeSpeed = 2.0; // タイムスピードを速くする
-    } else if (level === 'Intermediate') {
-        gameTime = 60; // Intermediateモード：1分
-        timeSpeed = 1.2; // タイムスピードを通常より速めに
     } else {
-        gameTime = 60; // イージーモード：1分
-        timeSpeed = 0.8; // タイムスピードを通常より遅めに
+        gameTime = 20; // イージーモード：20秒
+        timeSpeed = 1; // タイムスピードを通常に戻す
     }
 
     timeLeft = gameTime;
