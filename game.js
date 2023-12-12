@@ -77,6 +77,12 @@ function endGame() {
 
     if (level === 'Hard') {
         messageElement.style.display = 'block';
+    } else if (level === 'Intermediate') { // Intermediateレベルの場合の条件を追加
+        if (score === 20) {
+            congratulationsElement.style.display = 'block';
+        } else {
+            messageElement.style.display = 'block';
+        }
     } else {
         if (score === 20 && level === 'Easy') {
             congratulationsElement.style.display = 'block';
@@ -88,6 +94,7 @@ function endGame() {
     resetButton.style.display = 'block';
     enableLevelButtons();
 }
+
 
 function disableLevelButtons() {
     levelButtons.forEach(button => button.disabled = true);
