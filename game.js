@@ -116,13 +116,13 @@ function startGame() {
 
     if (level === 'Hard') {
         gameTime = 180; // ハードモード：3分
-        timeSpeed = 1.5; // タイムスピードを速くする
+        timeSpeed = 2.0; // タイムスピードを速くする
     } else if (level === 'Intermediate') {
-        gameTime = 20; // Intermediateモード：20秒
-        timeSpeed = 1; // タイムスピードを通常に戻す
+        gameTime = 60; // Intermediateモード：1分
+        timeSpeed = 1.2; // タイムスピードを通常より速めに
     } else {
         gameTime = 60; // イージーモード：1分
-        timeSpeed = 1; // タイムスピードを通常に戻す
+        timeSpeed = 0.8; // タイムスピードを通常より遅めに
     }
 
     timeLeft = gameTime;
@@ -171,7 +171,7 @@ function resetGame() {
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
-    levelSelected = false; // レベル
+    levelSelected = false; // レベル選択をリセット
 }
 
 document.getElementById('startButton').addEventListener('click', () => {
@@ -179,3 +179,4 @@ document.getElementById('startButton').addEventListener('click', () => {
 });
 
 // 初期化
+resetGame();
