@@ -1,5 +1,3 @@
-// game.js
-
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const fruitImage = new Image();
@@ -21,10 +19,6 @@ let level = 'Easy';
 const levelInfoElement = document.getElementById('levelInfo');
 const levelButtons = document.getElementById('levelButtons').querySelectorAll('.levelButton');
 let levelSelected = false; // レベルが選択されたかどうかのフラグ
-
-function drawFruit() {
-    ctx.drawImage(fruitImage, fruitX, fruitY, fruitWidth, fruitHeight);
-}
 
 const scoreElement = document.getElementById('score');
 let score = 0;
@@ -120,7 +114,6 @@ function startGame() {
     updateLevel();
     generateNewFruit();
     requestAnimationFrame(gameLoop);
-    setTimeout(endGame, gameTime * 1000);
 }
 
 function updateLevel() {
@@ -161,4 +154,13 @@ function resetGame() {
     messageElement.style.display = 'none';
     congratulationsElement.style.display = 'none';
     resetButton.style.display = 'none';
+    levelSelected = false; // レベル選択をリセット
+    enableLevelButtons();
 }
+
+document.getElementById('startButton').addEventListener('click', () => {
+    resetGame();
+});
+
+// 初期化
+resetGame();
