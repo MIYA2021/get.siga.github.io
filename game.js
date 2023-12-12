@@ -48,6 +48,10 @@ function gameLoop(timestamp) {
     }
 }
 
+function drawFruit() {
+    ctx.drawImage(fruitImage, fruitX, fruitY, fruitWidth, fruitHeight);
+}
+
 function generateNewFruit() {
     fruitX = Math.random() * (canvas.width - fruitWidth);
     fruitY = Math.random() * (canvas.height - fruitHeight);
