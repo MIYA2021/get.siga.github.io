@@ -3,7 +3,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const fruitImage = new Image();
-fruitImage.src = 'fruit.png';
+fruitImage.src = 'https://github.com/MIYA2021/get.siga.github.io/blob/main/fruit.png?raw=true';
 
 const fruitWidth = 80;
 const fruitHeight = 80;
