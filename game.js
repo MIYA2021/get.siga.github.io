@@ -120,11 +120,14 @@ function startGame() {
     score = 0;
 
     if (level === 'Hard') {
-        gameTime = 180; // ハードモード：3分
-        timeSpeed = 2.0; // タイムスピードを速くする
+        gameTime = 120; // ハードモード：2分
+        timeSpeed = 2.5; // タイムスピードを速くする
+    } else if (level === 'Intermediate') {
+        gameTime = 20; // インターミディエイトモード：20秒
+        timeSpeed = 1.5; // タイムスピードを中程度にする
     } else {
         gameTime = 20; // イージーモード：20秒
-        timeSpeed = 1; // タイムスピードを通常に戻す
+        timeSpeed = 0.8; // タイムスピードを遅くする
     }
 
     timeLeft = gameTime;
@@ -137,6 +140,7 @@ function startGame() {
     generateNewFruit();
     requestAnimationFrame(gameLoop);
 }
+この修正により、Hard
 
 function updateLevel() {
     levelInfoElement.textContent = `レベル: ${level}`;
